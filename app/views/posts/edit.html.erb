@@ -1,0 +1,19 @@
+<h2> Редоктирование поста </h2>
+      <%= form_for :post, url: post_path(@post), method: :patch do |f| %>
+      <% if @post.errors.any? %>
+      <% @post.errors.full_messages.each do |m| %>
+
+      <div class = "alert alert-danger"> <%= m %> </div>
+   <% end %>
+<% end %>
+<p>
+     Название<br>
+      <%= f.text_field(:title, {:class => 'form-control'}) %>
+</p>
+<p>
+     Текст статьи<br>
+      <%= f.text_area(:body, {:class => 'form-control'}) %>
+</p>
+<p>
+      <%= f.submit({:class => 'btn btn-success'}) %>
+<% end %>
