@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-http_basic_authenticate_with name: "admin", #пользователь не сможет добавлять, удалять, редоктировать посты
-password: "111", except: [:index, :show]    #кроме того, как просматривать их
+#http_basic_authenticate_with name: "admin", #пользователь не сможет добавлять, удалять, редоктировать посты
+#password: "111", except: [:index, :show]    #кроме того, как просматривать их
 
   def index                             #создане главной страницы
      @post = Post.all                   #отображаем все посты наглавной странице
@@ -33,14 +33,15 @@ end
         redirect_to posts_path          #перенаправляем польз. на главную страницу
    end
 
-  def create                             #создание и сохранение нового поста
+def create                             #создание и сохранение нового поста
     #render plain: params[:post].inspect            #Функция отладки для проверки данных
     @post = Post.new (post_params)                  #создаём новый пост в БД
   if(@post.save)                                    #сохраняем его в БД, если проверка прошла валидацию
     redirect_to @post                               #перенаправка пользователя на новую страницу, с помощью метода show
   else                                              #если не прошла валидацию то
     render 'new'                                    #станица обновляется
-  end
+end
+
 end
     private def post_params
        params.require(:post).permit(:title, :body)  #указываем какие поля разрешены для создания
